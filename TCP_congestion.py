@@ -1,6 +1,10 @@
 # Note: I believe this is the way congestion windows are calculated, but I may have made a mistake.
 # however, it lines up to the solution for question 6 from the problem set.
 
+# Note 2: The original answer in the problem sheet had a mistake, and reset the threshold to 33kB,
+# rather than the correct 32kB.  The original version of the script followed this behaviour, however
+# this has now been corrected.
+
 def calculator(i, num, transmission_size, mss):
     num_from_timeout = 1
     while i <= num + 1:
@@ -30,7 +34,8 @@ timeout_inp = int(input("If there is a timeout, enter which transmission it occu
 
 transmission_size_outer = 0
 if timeout_inp != -1:
-    threshold = calculator(1, timeout_inp, transmission_size_outer, mss_inp) / 2
+    threshold = calculator(1, timeout_inp - 1, transmission_size_outer, mss_inp) / 2
+    print(f'Transmission {timeout_inp}: {threshold * 2}kB - timeout - reset threshold to {threshold}kB')
     calculator(timeout_inp + 1, num_inp, transmission_size_outer, mss_inp)
 else:
     calculator(1, num_inp, transmission_size_outer, mss_inp)
