@@ -1,0 +1,2529 @@
+Computer communications
+• There are different types of
+• networks
+• operating systems
+• applications
+• Some incompatible with others
+Need for a set of rules used when
+exchanging messages
+Network
+Device A Device B
+2
+Components of a computer network
+• message: information to be communicated
+• sender: device that sends the message
+• receiver: device that receives the message
+• medium: physical path from sender to receiver
+• protocol: set of rules that govern data communications
+3
+ISO Reference Model for Open System Interconnection (OSI)
+• A framework for the structure of open communication systems, not a network
+architecture (not intended to have a single standard protocol at each layer)
+PDU = Protocol
+Data Unit
+Network Names
+• Most of the Internet sites have easy names like mail.google.com,
+irishtimes.com or ucd.ie (can then make up others if they end in the root
+name e.g., www.ucd.ie, docs.ucd.ie, mail.ucd.ie or even
+www.mail.ucd.ie)
+• More than .com of course
+.org un.org, nationalacademies.org
+.net hea.net, eircom.net, esat.net
+.ie Ireland
+• This name that we have been talking about is the domain name of the
+site, or the host name
+• Some big sites want to have many different computers serving that site
+• Some smaller sites might want to have many different domain names on the one
+computer
+• How does your computer find web addresses? All devices (computers,
+internet enabled mobile phones, laptops, computer servers and network
+equipment) have a unique address
+The Internet & Internet Protocols
+• This is called the IP address of the device and is usually given in a dotted
+decimal format:
+137 . 43 . 155 . 237
+each number is between 0 and 255 (28
+)
+Host Name
+www.ucd.ie
+MAC
+8:0:20:72:93:18
+IP
+ARP Address
+Resolution Protocol
+DNS Domain
+Name Service
+IP Addresses
+• The Internet address does not have to remain the same all the time. Find
+the IP address on your computer by typing
+ipconfig
+• One way to find out which IP address is being used by a site would be to
+try the following command (gives information on which IP address might
+be for this site, or sometimes which set of IP addresses )
+nslookup
+• To find out you can look at the route that that is usually taken by using
+the command (mainly disabled as shows all the pieces of network
+equipment that are used, the time taken between them and the IP
+address) tracert
+• What can we see about the network from UCD to the outside world
+www.hea.net
+7
+Major features of the Internet
+• IP uses datagram packet switching  connectionless
+• open design, open implementations, open standardisation process
+• “We reject kings, presidents, and voting. We believe in rough consensus and
+running code” (Dave Clark, MIT)
+• independent of the physical medium
+• scaleable: as evidenced by its growth
+• protocols have evolved over time, as problems arose and/or as application
+requirements changed
+• although “connections” are not welcomed in Internet circles, the desire to
+support QoS guarantees is adding connection-oriented concepts (such as
+admission control and resource reservation) to the Internet service model
+IP
+H-to-N
+SOURCE DESTINATION
+NETWORK
+ELEMENT
+Flow of Information
+IP IP
+H-to-N H-to-N
+TCP/UDP TCP/UDP
+Application Application socket API
+API =
+Application
+Programming
+Interface
+socket API
+H-to-N =
+Host-to-Network
+8
+Why does IP offer “best-effort datagram” service ?
+• the Internet was originally intended for robust transfer of computer-to-computer
+data over long distances
+• best-effort service appropriate for data transfers
+➢ no real-time requirements
+➢ end-points can adapt to network conditions, if they want/need to
+• why was connectionless packet-switching preferred to circuit-switching ?
+➢ no set-up delay
+➢ no blocking (fire-and-forget, forward-if-possible, deliver-as-received)
+➢however, there is no guarantee that any data reaches the destination
+➢ flexibility in transmission bit-rates
+➢in contrast with circuit-switching, which is usually tied to a few
+pre-determined bit-rates
+➢ no “path”  more reliable (route around problems)
+➢ more efficient use of network resources when traffic is bursty
+9
+Internet Protocols
+Datalink Frames
+have a Trailer also
+(not shown here)
+10
+The IPv4 Header
+Fragmentation of a datagram
+is needed when an intermediate
+network has a max frame size
+too small to carry the datagram
+all fragments of a
+given datagram
+have the same
+Identification value
+decreased by 1
+at each “hop”
+padded to a multiple of 4 bytes (32 bits); can carry fields
+that control routing, timing, management, security, ...
+11
+IPv4 Addresses
+00000000 00000000 00000000 00000000 0.0.0.0
+00000000 00000000 00000000 00000001 0.0.0.1
+00000000 00000000 00000000 00000010 0.0.0.2
+00000000 00000000 00000000 00000011 0.0.0.3
+10001001 00101011 00000001 00110001 137.43.1.49
+10001001 00101011 00000001 00110010 137.43.1.50
+10001001 00101011 00000001 00110011 137.43.1.51
+11111111 11111111 11111111 11111100 255.255.255.252
+11111111 11111111 11111111 11111101 255.255.255.253
+11111111 11111111 11111111 11111110 255.255.255.254
+11111111 11111111 11111111 11111111 255.255.255.255
+IPv4 address space
+12
+• 32 bits (4 bytes) addresses
+10001001 00101011 00000001 00110010
+• Total number of addresses:
+2
+32= 4,294,967,296 IPv4 addresses
+• Lower than Earth's population 
+13
+History – Class-based subnets (before 1993)
+Class Number of networks Number of hosts on each
+of this Class network of this Class
+A 126 2
+24 − 2 ( 16 million)
+B 2
+14 − 2 = 16,382 2
+16 − 2 ( 65,000)
+C 2
+21 − 2 ( 2 million) 254
+all-0’s and all-1’s
+(in the Netid &/or
+Hostid parts) have
+special meanings
+14
+Special IPv4 Addresses
+All 0’s
+Netid all 0’s Hostid
+All 1’s
+127 (Anything)
+Netid All 1’s
+Netid All 0’s
+This host
+A host with this Hostid
+on the local network
+Broadcast on the
+local network
+Broadcast on remote
+network specified by Netid
+Loopback testing
+refers to the network
+with specified Netid
+IP packets with loopback addresses are processed by the machine which generated
+them as if they were incoming packets (useful for debugging network software)
+15
+Who assigns IPv4 Addresses?
+RIPE NCC: 193, 194, 195, 212, 62
+Réseaux IP Européens Network Coordination Centre (www.ripe.net)
+ARIN: 208, 209, 216
+American Registry for Internet Numbers (www.arin.net)
+APNIC: 61, 202, 203, 210, 211
+Asia Pacific Network Information Centre (www.apnic.net)
+IP address assignment managed by ICANN (Internet Corporation for
+Assigned Names and Numbers) https://www.icann.org/
+ICANN is the non-profit corporation that was formed to assume responsibility
+for the IP address space allocation, protocol parameter assignment, domain name
+system management, and root server system management functions previously
+performed under U.S. Government contract by IANA and other entities
+ICANN assigns portions of the IP address space to other authorities.
+Some of the authorities which assign addresses to ISPs:
+16
+Names and IP addresses: the Domain Name System
+Name
+Server
+Mail
+Program
+TCP
+IP
+End-user
+cs.arizona.edu
+192.12.69.5 192.12.69.5
+192.12.69.5
+user@cs.arizona.edu 2 1
+3
+4
+5
+• “Name Server” is a hierarchy of servers
+called the Domain Name System (DNS)
+• name-to-address mapping for one or
+more root servers is “well-known” and
+stored in the local name server’s
+system configuration file
+• hosts initialised with address of a local name server
+There must be a way to translate between “user-friendly” names and IP addresses:
+Root
+name server
+Arizona
+name server
+NASA
+name server
+CS
+name server
+ECE
+name server
+. . . . .
+Example Hierarchy of Name Servers:
+if a name server cannot “resolve”
+the entire name, it returns an
+answer for as much of it as it can
+. . . . .
+17
+ARP and Reverse ARP
+• each host maintains an ARP cache of mappings between IP addresses and
+physical addresses (MAC)
+• ARP cache entries time out after (typically) 15 minutes
+• if destination’s IP address not in sending host’s ARP cache, the sending host
+broadcasts ARP query on local network
+• ARP query asks for physical address for destination’s IP address
+• ARP query includes sending host’s IP address and physical address (so
+other hosts can enter this in their ARP caches)
+• if destination is a host on local network, it sends its physical address to
+sending host in an ARP reply
+• if destination not on the local network, ARP server replies with its own
+physical address: proxy ARP
+• if a host doesn’t know its own IP address (e.g. diskless workstation being
+booted), it uses Reverse ARP
+• host broadcasts its physical address and asks for corresponding IP address;
+RARP server replies
+Subnetting
+18
+• Divides a network into sub-networks, i.e UCD has one network, but many
+schools (sub-nets)
+• The Netmask splits the IP Address into:
+• network-prefix (Network ID)
+• and host-number (Host ID)
+19
+IP Subnetting
+• IP address is composed of a Netid part and a Hostid part  2-level hierarchy
+• sometimes a 2-level hierarchy is insufficient for an organisation’s needs:
+• a solution:
+subnetting
+the 3 subnetworks still
+appear to the rest of the
+Internet as a single network
+Class B network
+20
+IP Subnetting (cont.)
+• an IP packet from some other network destined for host 141.14.2.21 still reaches router
+R1, since the destination address is still a Class B address with Netid 141.14 and
+Hostid 2.21 as far as the rest of the Internet is concerned
+• when the packet reaches router R1, the interpretation of the IP address changes
+• R1 knows that there are 3 levels of
+hierarchy within the organisation, and
+that in this case, the Netid is 141.14,
+the Subnetid is 2, and the Hostid is 21
+• how is this knowledge of the internal network hierarchy implemented in the
+organisation’s routers ?
+• A: masking of IP addresses during the packet-forwarding process
+• masking is done whether or not subnetting is being used
+with subnetting, the Netid defines the site,
+the Subnetid defines the physical network,
+and the Hostid defines the actual machine
+21
+IP Subnetting: Masking
+• masking means
+taking bit-by-bit AND
+of IP address and mask
+(255  all 1’s, 0  all 0’s)
+• mask address fields don’t have to be 255 or 0
+• e.g. could have a mask = 255.255.192.0
+extracts network address
+from an IP address
+extracts subnetwork address
+from an IP address
+CIDR – Classless Inter-Domain Routing
+22
+• Why it exists:
+– The 8 bit address boundary had lack of vision
+– E.g.: Class B networks are too big, i.e. 65536 hosts
+– In CIDR, the address space can be allocated to Internet Providers and end-users
+on any address bit boundary, using netmasks
+• Netmask (network mask):
+– 32 bits long
+– Used to specify
+• how many bits from an IP address define the Network ID,
+• and how many bits define the Hosts IDs
+• Netmask e.g.:
+1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 0 0 0 0
+255 255 255 240
+In this example, there are 28 bits of “1” and 4 bits of “0”.
+So, it is said that this is a /28 network.
+23
+Classless InterDomain Routing (CIDR)
+• original class-based IP addressing scheme is inefficient
+• by 1996, more than 50% of all Class B networks had  50 hosts
+• could give organisations which are large enough for a Class B address a number of
+Class C addresses instead
+• then every Internet backbone router would need an entry in its routing table for
+each of these Class C network numbers
+• CIDR: medium-large organisations get contiguous blocks of Class C addresses (in
+powers of 2)
+• example: company needs 8,000 IP addresses  gets 32 contiguous blocks of
+Class C addresses  8,192 addresses
+• e.g. if given Class C network numbers 192.4.0 – 192.4.31, then first 19 bits
+of all addresses in company’s networks are the same (19-bit network prefix):
+11000000 00000100 000  first 19 bits of network mask are 1, rest are 0
+• this company’s IP addresses are now written (e.g.) 192.4.19.252/19
+• same idea is now applied to all addresses, not just Class C addresses
+subnetting: share one network IP address among multiple physical networks
+CIDR: collapse multiple adjacent IP addresses onto one network prefix
+What network do I belong to?
+24
+• IP
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 0 0 0 0 0 1 0 1 . 0 0 0 0 1 1 0 1
+192 168 5 13
+• Netmask
+1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 0 0 0 0 0 0 0 0
+255 255 255 0
+• Network ID (Bitwise IP AND Netmask)
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 0 0 0 0 0 1 0 1 . 0 0 0 0 0 0 0 0
+192 168 5 0
+This is the fixed part of any IP address in this network.
+This is a /24 network, specifically: 192.168.5.0/24
+This is the free part, where bits can take any value, resulting in host IP addresses.
+How many hosts does this network have?
+Example: 192.168.5.0/24
+25
+• There are 254 hosts: 2
+(32-24) – 2 = 2
+8 – 2 = 256 – 2 = 254 hosts
+• Network ID
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 0 0 0 0 0 1 0 1 . 0 0 0 0 0 0 0 0
+192 168 5 0
+• First host’s address
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 0 0 0 0 0 1 0 1 . 0 0 0 0 0 0 0 1
+192 168 5 1
+• Other hosts
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 0 0 0 0 0 1 0 1 . x x x x x x x x
+192 168 5 2 to 253
+• Last host’s address
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 0 0 0 0 0 1 0 1 . 1 1 1 1 1 1 1 0
+192 168 5 254
+• Broadcast address
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 0 0 0 0 0 1 0 1 . 1 1 1 1 1 1 1 1
+192 168 5 255
+Practice on your own! Use: 192.168.153.33/21
+26
+• Network ID
+1 1 0 0 0 0 0 0 . 1 0 1 0 1 0 0 0 . 1 0 0 1 1 0 0 1 . 0 0 1 0 0 0 0 1
+192 168 153 33
+• First host’s address
+• Other hosts
+• Last host’s address
+• Broadcast address
+Subnetting: number of hosts
+27
+• If your network has a /n netmask,
+• then, there are:
+2
+(32 – n) – 2 hosts (a.k.a. usable IP addresses
+IPv6: Next Generation IP
+28
+• Solution to the scarce IPv4 address domain
+• Addresses are on 128 bits
+• Total number of IPv6 addresses:
+2
+128 = 340,282,366,920,938,463,463,374,607,431,768,211,456
+• More than enough for anybody on Earth to own multiple IP
+addresses
+• IoT will use a lot of these IPv6 addresses
+29
+IPv6: History
+• In early 90s, IETF held an open design process to design the next version of IP:
+IPv6
+• Motivated by problems with IPv4 (the current version of IP)
+➢ still have limited address space, even with subnetting & CIDR
+➢ didn’t handle real-time “flows”: routers ignored the IPv4 Type Of Service
+field
+➢ at the time, IPv4 security features were not widely used
+• IPv6 is not compatible with IPv4, but it is compatible with
+TCP/UDP/OSPF/BGP/DNS…
+• IPv4 and IPv6 will co-exist for a (possibly long) time
+➢ IPv6 implementations exist, but not many products so far
+30
+Major Features of IPv6
+• address space problems taken care of by using 128-bit addresses
+• there are a maximum of 2128 IPv6 addresses (approximately 3.41038)
+• even the most pessimistic expectations of IPv6 addressing efficiency predict
+16,000 IPv6 addresses per square metre of the earth’s surface…
+• simplified packet header functions
+• fragmentation at the source only; no header checksum
+• better support for options
+• e.g. hop-by-hop options, routing options, fragmentation options
+• extension headers are present when corresponding options used
+• support for per-flow handling and traffic classes
+• flow designated by source & destination addresses and flow number
+• support for authentication and security
+31
+The IPv6 Header
+version Traffic Class Flow Label
+Payload Length Next header
+Source Address
+(16 bytes)
+Destination Address
+(16 bytes)
+32 Bits
+Hop limit
+Extension Headers (if present), each with a Next header field
+IPv6 addressing is classless, but address space subdivided based on prefixes (as in IPv4);
+IPv6 address format is backward-compatible with IPv4 addresses
+Transport Layer
+32
+Motivation of Transport Layer Features
+33 Network
+Computer A Computer B
+Physical Layer
+Network Layer
+Transport Layer
+Link Layer
+Session Layer
+Presentation Layer
+Application Layer
+AP
+Physical Layer
+Network Layer
+Transport Layer
+Link Layer
+Session Layer
+Presentation Layer
+Application Layer
+AP Data
+AH Data
+PH AH Data
+SH PH AH Data
+SH PH AH Data
+SH PH AH Data
+SH PH AH Data
+Bits
+TH
+TH
+TH
+NH
+DH NH DT
+Network
+Device A Device B
+34
+UDP: User Datagram Protocol
+UDP Features
+35
+UDP is a connectionless transport protocol – extends IP’s host-to-host
+delivery service into a process-to-process communication service
+➢ can have multiple application processes on a single host, each with their
+own port number
+➢ a process is uniquely addressed by a < port, host > pair
+➢ common services are available at well-known (and reserved) ports on each
+host
+➢user applications must choose their ports from the set of non-reserved ports
+UDP doesn’t support flow control or reliable/in-order delivery, but it does
+support error detection by computing an “optional” checksum over the
+UDP header, UDP data, and IP pseudoheader (includes source and
+destination address fields from the IP header)
+Reliable UDP – provides reliable in-order delivery (up to a maximum
+number of retransmissions), with simple window flow control, for virtual
+connections 
+36
+TCP: Transmission Control Protocol
+For simplicity, only one direction of data flow shown; in general, a
+single TCP connection supports byte streams flowing in both directions
+• a TCP connection is full-duplex point-to-point, and does not preserve message boundaries
+➢ TCP is only concerned with end-to-end delivery of a byte stream
+• each byte of data gets its own Sequence Number (SN)
+➢ the SN in a TCP segment is the SN of its first byte
+Application Process
+TCP
+Send buffer
+Write
+Bytes
+Application Process
+TCP
+Receive buffer
+Read
+Bytes
+segment segment segment
+Data, with Sequence Number
+ACK & Advertised Window
+37
+The TCP Header
+SN of next byte
+expected at receiver
+20-60 bytes variable
+computed over the TCP header, TCP data, and IP pseudoheader
+(includes source and destination address fields from the IP header)
+38
+TCP Window Management Parameters
+• Maximum TCP Segment Size (MSS)
+• This is the block size for what the receiver can send, usually set at the start and not
+changed e.g. 1 KB or 3 KB or X KB
+• Congestion Window
+• How much I can send and changes all the time, keeps growing with successful
+transmission of MSS. Stops growing eventually
+• Receiver’s advertised window
+• This is the maximum window size and the Congestion Window can not exceed it
+• For example this might be 64 KB or 128 KB
+• Threshold
+• This is where the receiver goes from exponential increase to linear increase
+• It is initially set but changes when there is a timeout, but can be reset at any stage
+39
+TCP Window Management Example
+WIN=0  Sender can only send
+urgent data, or 1-byte “probe”
+segment after persistence timer
+expires (to see if WIN has changed)
+ACK=2048 WIN=2048
+2K SEQ=0
+2K SEQ=2048
+ACK=4096 WIN=0
+ACK=4096 WIN=2048
+1K SEQ=4096
+Sender Receiver
+Empty
+2K
+Full
+Application
+reads 2K
+2K
+1K 2K
+0 4K
+Receiver’s
+Buffer
+Application
+does a 2K
+write
+Application
+does a 2K
+write
+Sender is
+blocked
+Sender
+may send
+up to 2K
+time time
+Receiver should not send a window
+update until it has room for a
+maximum-size segment or its buffer
+is half-empty (whichever is smaller)
+otherwise may get into TCP “silly window” problem,
+where window updates are sent for tiny window sizes
+and the sender responds with tiny TCP segments…
+40
+TCP Congestion Control
+• Always assume a Timeout from packet loss was due to congestion
+➢ packet loss due to transmission errors is assumed to be relatively rare (?)
+• The arrival of ACK at Sender  TCP segment has left network at Receiver, so
+can send another TCP segment without adding to network congestion
+➢ trying to maintain “conservation of segments” by using ACKs to pace the
+transmission of data  TCP is said to be self-clocking
+• Sender sends the minimum of what Receiver and network can take
+➢ when connection initialised, Sender initialises congestion window to
+maximum TCP segment size (MSS) and sends one MSS
+➢ ACK received in time  add one MSS to congestion window, and send two
+MSS’s; their ACKs received in time  add two MSS’s to congestion
+window, and send four MSS’s…
+➢Exponentially growing the transmissions
+41
+TCP Congestion Control
+• When the congestion window reaches, or exceeds, the Threshold, then the
+receiver sends that number of MSS
+• With a successful transmission the number of MSS send increases linearly by
+one MSS at a time
+• This continues until the receiver is at the Receiver’s advertised window and then
+can not increase from this: this is slow-start
+• When a timeout occurs there is a reset of the connection
+• Reset Threshold to 1/2 of current congestion window
+• Reset Congestion Window to one MSS
+• Slow-start used until Threshold value reached, after which each successful
+transmission grows the congestion window by one MSS: this is linear increase
+42
+TCP Congestion Control: Example 1
+0 2 4 6 8 10 12 14 16 18 20 22 24
+28
+32
+36
+40
+44
+0
+4
+8
+12
+16
+20
+24
+Transmission Number
+Sender’s Congestion Window (kB)
+Transmission
+Number
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+Congestion
+Window (kB)
+1
+2
+4
+8
+16
+32
+33
+34
+35
+36
+37
+38
+39
+40
+1
+2
+4
+8
+16
+20
+21
+22
+23
+24
+25
+Threshold
+(kB)
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+20
+20
+20
+20
+20
+20
+20
+20
+20
+20
+20
+MSS = 1 kB
+Receiver’s advertised window = 64 kB always
+Threshold = 32 kB for Transmission No. 0
+Timeout on
+Trans. 13
+43
+Transmission
+Number
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+Congestion
+Window (kB)
+1
+2
+4
+8
+16
+32
+33
+34
+35
+36
+36
+36
+36
+36
+1
+2
+4
+8
+16
+18
+19
+20
+21
+16
+16
+Threshold
+(kB)
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+32
+18
+18
+18
+18
+18
+18
+18
+18
+18
+18
+18
+0 2 4 6 8 10 12 14 16 18 20 22 24
+28
+32
+36
+40
+44
+0
+4
+8
+12
+16
+20
+24
+Transmission Number
+Sender’s Congestion Window (kB)
+Receiver’s
+advertised
+window
+= 36 kB
+Receiver’s
+advertised
+window
+= 16 kB
+MSS = 1kB
+Receiver’s advertised window = 36 kB initially
+Threshold = 32 kB for Transmission No. 0
+TCP Congestion Control: Example 2
+In TCP, TIMEOUT value is updated dynamically, based on measurements
+of the connection’s round-trip time (RTT) and the variation in RTT
+Timeout on
+Trans. 13
+44
+TCP Congestion Control
+• Receiver’s advertised window
+• This is the maximum window size and the Congestion Window can not exceed it and
+it can be changed at any time during the connection
+• Threshold
+• This then can be greater than or less than the Receiver’s advertised window
+• This gets reset (larger or smaller) when there is a timeout
+• Loads of different versions of TCP Congestion Control mechanisms
+• Additive Increase/Multiplicative Decrease
+• Slow Start
+• Fast Retransmit and Fast Recovery
+• TCP CUBIC
+• The essential idea is to send packets without a reservation and then to react to
+events that we can see. 
+
+1
+Overview: Network Basics
+• types of communication service
+• how communication services are implemented
+• switching
+• multiplexing
+• network performance measures
+2
+Types of service in a layered network architecture
+• connection-oriented: establish a connection; use the connection (for data
+transfer); release the connection
+• modelled on the telephone system
+• essential feature: sender pushes objects (e.g. bits, packets) in at one end
+of the connection, and receiver takes them out in the same order at the
+other end
+• connectionless: each message is sent independently of any other messages
+going from the same sender to the same receiver
+• modelled on the postal service
+• essential features: each message must include the receiver’s address,
+and messages can be received in a different order to the order in which
+they were transmitted
+3
+Types of service in a layered network architecture (cont.)
+Each type of service can be characterised by its reliability: if the service
+guarantees to correctly deliver the data
+• a reliable service is typically implemented by having the receiver
+confirm to the sender that it correctly received each message (which
+introduces extra overhead and delays)
+Reliable connection-oriented service has 2 variations:
+• message stream: preserves message boundaries (e.g., 2 1-kB messages
+are received as 2 1-kB messages, not 1 2-kB message, 4 512-byte
+messages, or anything else)
+• byte stream: doesn’t preserve message boundaries (e.g., 2 1-kB
+messages are received as a 2048-byte stream)
+Can also have unreliable connection-oriented service e.g., real-time audio or
+video: tolerates some errors or losses in transmission (quality decreases as
+errors/losses increase)
+4
+Types of service in a layered network architecture (cont.)
+connectionless service can be unreliable (no 100% delivery guarantee),
+acknowledged (receipt confirmed), or request-reply (a single short message
+contains a request, another the reply)
+Note: communication services are defined based on end-to-end properties,
+not on how bits are transported in the network
+a single network could offer more than one type of service
+• e.g., the Internet supports all of them, more or less
+may have different implementations of the same service
+• e.g., connection-oriented delivery of a voice bit stream can be
+implemented by packet voice or a dedicated circuit
+5
+How are communication services implemented ?
+It is economically infeasible
+to directly connect every pair
+of sender-receiver pairs
+(e.g., mesh) or to connect all
+to a central site (e.g., star) in
+a large network
+Technology limitations mean that broadcast solutions don’t scale to large
+numbers of hosts or large geographical distances
+Network resources must be shared between the users, while still allowing
+senders to transmit data to their receivers
+The two basic techniques that permit connectivity while sharing resources are
+switching and multiplexing
+➢ switching: sharing network resources among multiple transmissions
+➢ multiplexing: sharing a single link among multiple transmissions
+6
+Circuit switching
+A path is set up in the network between the sender and the receiver (by
+making the appropriate connections in the switches)
+• the necessary network resources are reserved for the connection prior
+to any data transfer; if this is not possible, the connection request is
+blocked
+• these reserved resources are then held for the duration of the
+connection, regardless of actual usage
+Switch = a device that can create a temporary connection
+between an input link and an output link
+7
+Circuit switching (cont.)
+Network links are not shared at the same time
+the links in a path are monopolised for the duration of the connection,
+then released so that they are available for other connections
+The connection set-up delay can be significant (>1 second)
+Circuit switching is ideal for “smooth” network traffic
+• e.g., telephone network
+What if the traffic from sender to receiver is “bursty” where the rate varies
+widely around its average value (or peak/mean is high) ?
+computer-to-computer traffic can be very bursty
+➢ could set up a new circuit for each burst
+➢ could hold original circuit for duration of data transfer
+Both of these solutions are wasteful of network resources
+8
+Packet switching
+packet = string of bits (up to a few thousand, typically)
+uses store-and-forward operation:
+packet
+switching
+message
+switching
+circuit
+switching
+In packet switching, an
+upper limit is placed on
+packet size, and packet
+transmissions are
+pipelined (reducing
+the overall delay)
+9
+Two types of Packet switching: Datagram & Virtual Circuit
+Datagram packet switching: each packet is treated individually within the
+network, so successive packets may follow different routes
+each packet contains the receiver’s address and a sequence number (so
+that receiver can put them into correct order)
+Network nodes are routers, which have routing tables telling
+them which output link to use for each possible destination
+10
+Datagram packet switching
+No connection set-up needed
+Flexible routing possible (e.g., if a router crashes)
+Network resources are not shared at the same time
+• each packet monopolises a link during its transmission, after which the
+link is available for other packet transmissions
+Datagram packet switching ideal for short-lived bursty traffic
+Datagram packet switching less suitable for long-lived &/or interactive bursty
+traffic
+11
+Virtual Circuit packet switching
+A route is set up in the network between sender and receiver (by making
+appropriate entries in the routing tables)
+resources may or may not be reserved for this route. If resources need to
+be reserved and are not available, the connection request is blocked
+each packet contains its virtual circuit identifier
+Routers have routing tables telling
+them which output link to use
+for each established virtual circuit
+12
+Virtual circuit packet switching
+Connection set-up required, which may involve significant delay
+Network resources are not shared at the same time
+each packet monopolises a link during its transmission, after which the link
+is available for other packet transmissions
+Less work required at intermediate routers than for datagram packet switching
+given a packet’s input link and virtual circuit identifier, the router can look
+up its routing table to find the output link
+Virtual circuits not as robust to network problems as datagram packet switching
+Virtual circuit packet switching represents a “compromise” between circuit
+switching and datagram packet switching
+• circuit switching creates a path in the network; virtual circuit packet
+switching creates a route which exists only in software; datagram packet
+switching doesn’t have routes
+• in circuit switching, the links in the path cannot be shared during the
+connection; in virtual circuit and datagram packet switching they can
+13
+Multiplexing
+• sharing a single link among multiple transmissions
+• 3 basic possibilities:
+➢ Frequency division multiplexing (FDM)
+➢ Time division multiplexing (TDM)
+➢ Statistical multiplexing
+14
+Multiplexing: FDM
+15
+Multiplexing: TDM
+16
+Multiplexing: Statistical multiplexing
+• both FDM and TDM divide the link into independent channels
+• inefficient if traffic is bursty, since no sharing allowed
+• in statistical multiplexing, the idea is that the link should never
+be idle when there is data to be transferred
+Frames have an additional overhead (compared to FDM or TDM) to indicate
+which input stream they belong to; the packet queueing delay is now variable;
+and a (possibly complex) method is needed to decide which packets to multiplex
+17
+Transmission modes
+Simplex
+Half-duplex
+Full-duplex
+18
+Network performance measures
+l = length of signal path in communication medium (metres)
+v = signal propagation speed in the medium (metres/second)
+L = average length of frame or packet (bits)
+C = transmission rate (bits/second)
+Slope is the time it propagates over this link
+The “depth” is the time it takes to put the packet on the link
+19
+Network performance measures
+• Propagation delay = l / v , in seconds
+• shows how long a bit takes to propagate along the path
+• Transmission time = L / C , in seconds
+• shows how long it takes to get packet onto the medium
+• Throughput: how fast data can pass a certain point
+• can be measured in bits/second, packets/second, …
+• Efficiency is related to throughput, e.g.
+efficiency = throughput (in packets/sec) * packet transmission time
+20
+Network performance measures: Example 1
+Consider an optical fibre 3000 km long with a transmitter
+transmitting at 1.5 Gbps (1 Gbps = 1 000 000 000 bps).
+The signal propagation speed in optical fibre is
+approximately 200 000 km/sec. Suppose packet switching
+is being used with a packet length of 2000 bits.
+What is the bit propagation delay along the fibre ?
+prop_delay = (3 000 000)/(200 000 000) = 15 millisec
+What is the packet transmission time here ?
+pkt_trans = (2 000)/(1 500 000 000) = 1.3333 microsec
+21
+Network performance measures: Example 1 (cont.)
+How many packets have been transmitted and are propagating
+over the fibre when the first bit reaches the
+destination ?
+num_pkts = (1510-3)/(1.333310-6) = 11 250 packets
+(Note that this is 22 500 000 bits)
+another explanation: each packet takes 1.333310-6
+seconds, and so one will follow the other until we have
+spent 1510-3 seconds
+22
+Network performance measures: Example 2
+Consider a route in a store-and-forward network going
+through 8 intermediate nodes. The packets contain 1000
+bits and are transmitted at 64 kbps. Assume propagation
+delays over the links are negligible. As a packet travels
+along the route, it encounters an average of 5 packets
+when it arrives at each node. How long does it take for
+the packet to get to the receiver if the nodes transmit
+on a “first come first served” basis ?
+At each intermediate node, 6 packets must be transmitted
+in order for “our” packet to be transmitted: our packet
+finds 5 packets ahead of it, which will be transmitted
+first due to the “first come first served” policy.
+23
+Network performance measures: Example 2 (cont.)
+The packet transmission time at every node is
+pkt_trans = (1 000)/(64 000) = 15.625 millisec
+The total travel time for our packet through the network is
+travel_time = (transmission delay at sender) +
+8  (delay at each intermediate node)
+= pkt_trans + 8  6  pkt_trans = 766 millisec
+Note that the “pure” transmission delays only account for
+route_trans = pkt_trans + 8  pkt_trans = 141 millisec
+24
+Network performance measures: Example 2 (cont.)
+Our packet endures a queueing delay in each intermediate
+node of
+node_q_delay = 5  pkt_trans = 78 millisec
+and since there are 8 intermediate nodes, the total
+queueing delay along this route is
+route_q_delay = 8  node_q_delay = 625 millisec
+which represents just over 80% of the total travel time.
+So queueing delay can account for a substantial “extra”
+delay experienced by packets in the network. One way to
+reduce this queueing delay FOR SOME PACKETS would be to
+use a different policy in the intermediate nodes, rather
+than first-come-first-served. This could result in some
+“higher-priority” packets getting to their receivers much
+quicker, while “lower-priority” packets would experience
+longer delays.
+25
+Network performance measures: Example 3
+150 nodes are connected to a 1000 metre length of coaxial
+cable. Using some (unspecified) protocol, each node can
+transmit 70 frames/second, where each frame is 1000 bits
+long. The transmission rate at each node is 100 Mbps.
+What is the per-node throughput ?
+thru_node = 70  1000 = 70 000 bps
+What is the total throughput (of the 150 nodes) ?
+thru_total = 150  thru_node = 10 500 000 bps = 10.5 Mbps
+What is the efficiency of this protocol ?
+efficiency = (total throughput, in bps)
+ (bit transmission time)
+= (10 500 000)  (1/100 000 000) = 0.105, or 10.5%
+OR efficiency = (total throughput, in frames per second)
+ (frame transmission time)
+= (70  150)  (1 000/100 000 000) = 0.105, or 10.5%
+26
+Network performance measures: Example 3 (cont.)
+What would give us 100% efficiency, and why is the
+efficiency so far below 100% here ?
+If some node in the network was transmitting at every
+instant of time, the total throughput would be 100 Mbps
+and the efficiency would be 100%. However, the protocol
+being used to regulate access to the medium (the coaxial
+cable) introduces some delays between transmissions
+– either because it permits collisions to occur, which
+must be recovered from; or because some “permission to
+transmit” token must be passed from the node currently
+in possession to the next node allowed by the protocol
+to transmit. In either case, these inter-transmission
+gaps result in a drop in efficiency.
+Note that, although this efficiency seems low, it may be
+perfectly acceptable. For example, if the objective was
+to run the network with a minimum throughput of 10 Mbps,
+this protocol works ok.
+
+1
+Overview: Internetworking and Routing
+• Topology
+• Network devices
+• More OSI and TCP models
+• Bridge Algorithms
+• Routing Algorithms
+2
+Transmission modes: “Broadcast” or “Point to Point”
+Broadcast networks: single communication channel shared by all
+network nodes
+• can send to either one node, all nodes, or (maybe) group of nodes
+• address field in message specifies receiver(s)
+• single communication channel shared by all network nodes
+Point-to-point networks: many possible connection paths between any
+pair of nodes
+• message may have to pass through intermediate nodes on the way
+from sender to receiver
+• usually, need a routing algorithm to decide if a path exists from
+sender to receiver, and - if multiple such paths exist - which one(s) to
+use
+3
+Network Size
+• network scale: different techniques are used at different scales
+4
+Wired Local Area Networks (LANs)
+• restricted size  worst-case communication delay is bounded
+• low propagation delay (e.g., small fractions of a second)
+• high speed (e.g., 100 Mbps up to >Gbps and beyond)
+• low error rate
+• different possible topologies for broadcast LANs
+bus ring
+5
+Other LAN topologies
+mesh
+star
+tree
+6
+Wide Area Networks (WANs)
+• nodes which run user applications: hosts (or end-systems)
+• subnet connects the groups of hosts
+• nodes within the subnet: routers, switches, intermediate systems...
+• links within the subnet: links, circuits, channels, trunks...
+Beware: “subnet” has another (specific) meaning in IP networks!
+7
+Topology of WAN
+• point-to-point subnet: most common type of WAN
+star ring tree
+mesh intersecting rings irregular
+8
+Internetworking Devices
+• an internet = a collection of connected networks which share a common set
+of rules for communication
+• reminder: the Internet = connected set of networks which all use IP
+• usually, additional devices are needed:
+• a broadcast LAN may need to extend further than its standard allows –
+use repeaters (also called signal regenerators)
+• the number of nodes required on the network may be too high, so the
+network may have to be subdivided – use bridges
+• two or more networks may have to be connected together – use routers
+(if the networks use the same Network layer protocol) or gateways (if the
+networks use different protocol stacks)
+• warning: terminology is not universally agreed on (especially by equipment
+manufacturers and vendors :^)
+• e.g., confusion between functionality of bridges vs. routers…
+9
+Internetworking Devices (cont.)
+• each type of internetworking device interacts with protocols at different
+layers of the OSI model
+• repeater – active only at the Physical layer
+• bridge – most active at the Datalink layer
+• router – links separate but similar LANs  most active at the Network layer
+• gateway – provides “translation” service between incompatible LANs or
+applications  active in all layers
+• NOTE: each of these devices also operates in all layers below the one in
+which it is most active
+10
+Internetworking Devices: Repeater
+• an electronic device which regenerates (“cleans up”) incoming signals
+• allows the physical reach of a network to be extended
+11
+Internetworking Devices: Repeater (cont.)
+• a repeater does not filter frames, e.g., A’s Frame to B also received by C & D
+• a repeater copies and “refreshes” incoming bits 
+12
+Internetworking Devices: Bridge
+• operates in both the Physical and Datalink layers
+• a bridge knows the physical addresses of the connected nodes
+13
+Internetworking Devices: Bridge (cont.)
+• a bridge can divide a large network into smaller segments, or relay Frames
+between 2 originally unconnected LANs:
+• unlike a repeater, a bridge contains logic which allows it to keep traffic for
+each segment separate  bridge can filter or route traffic
+• helps in controlling traffic congestion, isolating problems, security…
+14
+Internetworking Devices: Bridge types
+• simple bridge – links 2 segments; node addresses entered manually in bridge table
+• multi-port bridge – connects more than 2 segments:
+15
+Transparent and Source Routing
+• transparent bridges: where routing decisions are carried out by the bridges, thus
+the presence of intermediate bridges is transparent to communicating stations
+• transparent bridge (also called a learning bridge) – builds its tables of addresses
+automatically as it relays Frames (by noting the source address in each Frame)
+• if more than one bridge connects 2 LANs, a loop could be formed in the
+bridges’ forwarding tables  Frames could circulate forever
+• transparent bridges learn the topology and build a loop-free spanning tree
+•source routing bridges: routing decisions are made by the source node. Bridges
+simply transfer frames based on the frames routing field.
+• source routing bridge – each sender learns the topology (using Discovery Frames)
+and decides the exact path of segments and bridges each of its Frames will take
+Port
+1
+Bridge 1
+Port
+2
+Port
+3
+Port
+1
+Bridge 2
+Port
+2
+1 2 5 6 7 8
+3 4
+Station Address Port
+1
+2
+3
+4
+5
+6
+7
+8
+1
+1
+2
+2
+3
+3
+3
+3
+16
+Transparent Routing 
+17
+Internetworking Devices: Bridge traffic filtering
+• when a Frame arrives, the bridge not only regenerates the signal but also
+checks the destination address, and only forwards the Frame to the segment to
+which this address belongs:
+Frame relayed to entire
+upper segment
+Frame relayed to entire
+lower segment
+Transparent Bridges
+• Routing is carried out by the bridges using their routing tables (Forwarding
+Database, FDB) that automatically initialise and re-configure when turned on
+• Frames have their Source and Destination address read
+• The destination address of the packet is used by the FDB to determine which, if
+any, output port to forward the frame on
+• If the result of the FDB lookup is the same port that the frame was received on, then
+the frame is simply discarded and the next queued frame processed
+• This forwarding process is also known as Frame filtering
+• The FDB is not statically set up but rather are dynamically created and
+maintained during normal operation of the bridge, called Bridge Learning
+• To begin if it does not know where the destination is
+• a copy of the frame is forwarded on all the other output ports of the bridge
+• these frames propagate through the network (repeated by each bridge)
+• known as Flooding the network
+18
+Learning Complications: Transparent Bridges
+• The FDB is updated when a user changes location. An Inactivity Timer is
+associated with each database entry. Whenever a frame is received, the timer for
+that entry is reset
+• If no frames are received from that station within the predefined time interval, the
+timer expires, and the entry is removed
+• If the entry was removed and a frame arrives the learning process starts
+• Multiple paths between two segments cannot exist as the entries in the FDB
+would be continuously overwritten
+• In the example, when station 15 transmits a frame on Segment 1 (during the
+learning phase) B1 and B2 will both create an entry in their FDB and forward a
+copy onto segment 2
+• Each of these frames will be in turn be received by the other bridge
+• An entry will be made (indicating that 15 resides on segment 2)
+• A copy of the frame output on their port 1
+• The frames would continuously circulate in a loop, with the FDB entries being
+continually modified. An additional algorithm is used to select a single bridge,
+and this Active Topology behaves as a Spanning Tree 19
+Example of Bridge Learning: Transparent Bridges
+Port 1
+Port 2
+B1
+Port 1
+Port 2
+B2
+15
+20
+Spanning Tree Algorithm: Transparent Bridges
+• Alternative bridges inserted for reliability are not used.
+• The algorithm is run at regular intervals and will dynamically select a set
+of bridges from those currently operational.
+B B B
+B
+B
+B
+B
+B B
+21
+Source Routing Bridges
+• The end-stations perform the routing function by picking the route to be
+followed before any frames are transmitted.
+• This information is inserted at the head of the frame and is used by each bridge
+to determine the route
+• A bridge needs only to search the routing field at the head of the frame for its
+own bridge identifier.
+• Only if it is present and followed by the identifier of a segment connected to one
+of its output ports does it forward the frame onto that segment.
+22
+Routing
+Control
+Routing
+Designator 1
+Routing
+Designator 2
+Routing
+Designator N
+Routing Field
+Length
+Maximum
+Frame Size
+Frame
+Type
+Segment
+Identifier
+Bridge
+Identifier
+Routing Information Subfield
+Source Routing Bridges
+• Routing Table at A:
+B
+A
+B1
+C
+B2
+Segment 2 D
+Segment 3 Segment 1
+Dest B = Seg 1
+Dest C = Seg 1, B1, Seg 2, B2, Seg 3
+Dest D = Seg 1, B1, Seg 2
+23
+Source Route: Finding Operation
+• First creates and transmits a Single-route-broadcast-frame
+• Like the flooding mechanism in transparent bridged LANs, a single-routebroadcast-frame is forwarded on all a bridge’s output ports, thus ensuring it
+eventually reaches the destination
+• A Spanning tree active topology is employed for only the single-route-broadcastframes to ensure a single copy of the frame will be sent on a segment
+• The destination station returns an All-routes-broadcast-frame to the originating
+station that is not constrained to following the spanning tree
+• The bridge adds a new route designator field, comprised of the segment
+identifier on which the frame was received and its own bridge identifier and then
+broadcasts a copy of the frame on each of its other ports
+• In this manner one or more copies of the frame will be received by the originating
+source station via all the possible routes between the two stations
+• By examining the route designators in their routing fields, the source station can
+select the best route to be used for transmitting a frame to that destination
+• This is then entered into its routing table and is subsequently used when transmitting
+24
+Transparent
+Bridging
+Source Routing
+Bridging
+Routing
+Philosophy
+Bridges co-operate to
+perform the routing function
+which is transparent to the
+end-stations
+The route to be followed by a
+frame is inserted at the head of
+the frame by the source station
+before transmission of the
+frame
+Quality of
+Routes
+A spanning tree is used to
+ensure there are no loops in
+the active topology, however
+it is unlikely that the
+resulting topology will yield
+optimum routes between all
+the stations
+With source routing all
+possible routes are identified
+and the source can select the
+optimum one based on its
+selection criteria
+Use of
+Available
+Bandwidth
+To ensure a spanning tree
+topology, transparent bridges
+may block selected ports,
+hence the full bandwidth
+provided by the segments
+will not be utilised
+All available segments are
+used during the route finding
+process so, in theory, the full
+bandwidth could be utilised
+Comparison: Bridge Routing
+25
+Transparent
+Bridging
+Source Routing
+Bridging
+Route
+Forwarding
+Overheads
+A transparent bridge must
+maintain an FDB with
+entries for all active stations.
+Looking up FDB entries may
+significantly add to the frame
+processing overhead at the
+bridge
+In contrast, the processing
+overhead per frame in source
+routing is small since a bridge
+need only search the routing
+field for its own identifier
+Route Finding
+Efficiency
+Because of the spanning tree
+active topology only one
+‘route finding’ frame (per
+route) will be passed on each
+segment during the bridge
+learning process
+In contrast, with source routing
+all-routes-broadcast-frames are
+not constrained to following a
+spanning tree, so there may be
+considerable overhead (in
+terms of bandwidth usage and
+bridge processing overhead)
+associated with these frames
+Reliability
+Bridges periodically check
+for bridge or link failures,
+which, if found, cause the
+active tree topology to be
+updated to attempt to cope
+with the situation
+Since source stations hold the
+routing information, it is then
+their responsibility to detect
+failure conditions, mechanisms
+are in place to achieve this
+26
+Comparison: Bridge Routing
+27
+Internetworking Devices: Bridge between different LAN types
+• example of a bridge connecting a CSMA/CD LAN to a Token Bus LAN:
+• problems in connecting different types of LAN:
+• different Frame formats
+• different payload sizes (e.g. 1500 bytes in Ethernet, 4500 bytes in Token Ring)
+• different data rates (e.g. 10 Mbps in Ethernet, 16 Mbps in Token Ring)
+• different bit order of addresses
+• presence or absence of priority bits
+• presence or absence of ACK/NAK
+28
+Internetworking Devices: Router
+• a router operates in the Network, Datalink, and Physical layers
+• a router knows Network layer (“logical”) addresses
+29
+Internetworking Devices: Router (cont.)
+• routers relay Packets among interconnected networks
+• a router has links to 2 or more networks at the same time
+• a router link to one of its connected networks has an address on that network
+• if there is no router connected to both the sender’s network and receiver’s network,
+the router connected to the sender’s network transfers the Packet across one of its
+connected networks to another router which (hopefully) is “nearer” the receiver
+• Packets forwarded from one router to the next like this, until receiver is found
+30
+Forwarding IP packets
+How does a sending host know the physical address corresponding to the IP address
+of its intended destination ? Answer: it uses the Address Resolution Protocol (ARP)
+Problems forwarding IP packets  Internet Control Message Protocol (ICMP)
+sends error message back to sending host. ICMP can also be used to tell hosts
+about better routes, using ICMP–Redirect messages.
+Example:
+31
+IP Router Architecture
+Routing CPU
+Line
+Card
+Line
+Card
+Line
+Card
+Line
+Card
+I/O
+Ports
+Switching
+Fabric
+IP packet arrives (in a datalink frame):
+1 line card applies datalink layer logic to ensure
+frame is valid and packet successfully received;
+2 validity check performed on IP header;
+3 if destination address is a non-local host, routing
+table lookup performed to determine how to forward
+the packet;
+4 packets may have to be classified into predefined
+service classes;
+5 TTL field decremented, new header checksum
+computed, packet sent to appropriate output port;
+6 datalink layer logic on output port’s line card
+inserts datalink layer header and transmits the packet
+inside a frame
+[NOTE: some/all of steps 2-5 may be done in the
+input port, not the routing CPU]
+• if this process fails, ICMP error message sent to packet’s sender
+• if packet arrival rate exceeds router’s forwarding capacity, packets must be buffered
+• if buffers are full, packets must be discarded
+32
+Internetworking Devices: Multiprotocol Router
+• can relay Packets from 2 or more Network layer protocols
+33
+Internetworking Devices: Gateway
+• also called a Protocol Convertor
+• may have to operate in all 7 layers of the OSI Model
+34
+Internetworking Devices: Gateway (cont.)
+• a gateway is usually a piece of software installed in a router
+• gateway software understands all the protocols used by networks to which the
+router is connected  can translate from one to another
+• adjustments to incoming packets could include changes to:
+• values in header and/or trailer fields
+• data rate
+• size of packet
+• entire format of packet
+from IBM
+from Novell
+35
+Internetwork (reminder)
+• collection of connected networks
+• “an internet” vs. “the Internet”
+• the Internet = connected set of networks which all use IP
+router / gateway / protocol convertor
+36
+Computer Network Software
+• structured as a hierarchy of layers
+• each layer offers certain services to the higher layers, while hiding from the
+higher layers the details of how those services are implemented: hierarchical
+modularity
+• a particular layer in one network node communicates with the corresponding layer
+in another network node by using an agreed protocol for that layer
+• this communication may be actual or virtual
+Note: the lower layers are often implemented (at least partly) in hardware
+Example:
+37
+Computer Network Software (cont.)
+• actual communication is “vertical” except in the physical medium
+• peer entities are programmed as if data transmission were “horizontal”
+• together, these peer entities execute distributed scripts
+• interfaces between adjacent layers define which operations and services the
+lower layer offers to the higher layer
+• minimise amount of information passed between layers
+• allow different equivalent implementations of a layer
+• encapsulation:
+• at the sender, layer N may add control information to the data it receives
+from layer N+1 before passing the (increased) data to layer N-1; at the
+receiver, layer N-1 passes data to layer N, which can read, act upon, &
+remove this control information before passing the (reduced) data up to layer
+N+1
+• layer N should not need to know which portion of layer N+1’s data is
+control information, or its meaning
+38
+Computer Network Software Layers
+• network architecture = set of layers & protocols
+• doesn’t contain implementation details or interface specifications
+• principle: each layer should perform a specific set of well-defined functions
+• question: how many layers are needed ?
+• we’ll see that different network architectures have different numbers of
+layers and/or different functions within their layers
+• minimum of 2: one focused on (user) application issues, and one focused
+on network issues
+• more realistically, the following general issues must be addressed:
+➢ physical signal transmission between directly connected nodes
+➢ digital transmission of a message between neighbouring entities
+➢ end-to-end communication between a source and a destination
+➢ communications needed to run a distributed (user) application
+OSI Model - Details
+• Physical Layer – concerned with
+the transmission of data bits
+between two directly interconnected devices
+• Link Layer – concerned with
+ensuring data transmission is free
+of errors between adjacent nodes
+• Network Layer – ensures
+successful transmission of packets
+between two nodes of the network
+• Transport Layer – provides endto-end sender-destination
+communication, including correct
+packetization
+• Session Layer – supports sessions
+and synchronization during data
+exchange
+• Presentation Layer – concerned with
+syntax and coding when exchanging data
+• Application Layer – provides access to
+extensive network-related services (file
+transfer, message exchange, etc.)
+39
+OSI Terminology
+• Service Access Point (SAP) is the point between a layer and the next higher one
+• Service Data Unit (SDU) is the block of data coming down from the higher layer
+• Protocol Control Information (PCI) is the header that is added on to the SDU to
+make the relevant data block at this layer
+• Protocol Data Unit (PDU) is the block of data that is given to the next layer
+underneath the current layer
+Layer N+1
+Layer N
+N - SDU
+N - PDU
+N - PCI
+N+1 - PDU
+N - SAP
+40
+41
+Issues with the OSI model
+• unclear what layers 5,6, & 7 should do
+• layers 1, 2, & 3 have had to be split into sublayers, so the original
+layering was unrealistic
+• several functions (e.g., error control, flow control) can occur in more
+than one layer
+• with 7 layers, long processing delays are possible
+• de facto standards (such as the Internet protocols, which were already
+widely used) don’t fit very well with the OSI model
+• the OSI model was devised before the protocols were invented
+• associated OSI service definitions and protocols are complex, difficult to
+implement, and relatively inefficient in operation
+42
+The TCP/IP Reference Model (or “Internet Protocols”)
+• OSI model was dominated by the telecommunications mentality
+• TCP/IP was from the data communications industry and is in widespread
+use, public domain specs, computer industry support
+• The OSI model (unlike the Internet protocols) distinguishes between
+services, interfaces, and protocols, and has proved to be a useful “textbook”
+introduction to layered networking
+• OSI terminology is widely used in describing other models
+FTP HTTP NV TFTP
+TCP UDP
+IP
+NET1 NET2 NETn
+43
+The TCP/IP Reference Model (cont.)
+• based on the client-server model of communications
+• server = a process which provides a service when requested
+• client = a process which requests a service
+• in general, a client program is run only when it is needed, and is finite (started by the
+user/application, terminates when service received)
+• a server program should run all the time, and is infinite (when started, it runs
+infinitely, waiting for incoming requests and responding to them)
+44
+Network Layer: Routing Algorithms
+• routing algorithm = logic a router uses to decide, for each incoming Packet, which
+output link the Packet should be transmitted on
+• datagram packet-switching: this decision must be made for every Packet
+• virtual circuit packet-switching: routing decisions made only at v.c. set-up
+• desirable properties of a routing algorithm:
+• correctness, simplicity, efficiency – obviously
+• robustness – since usually the entire network can’t be “re-booted” !!!
+• stability – routing algorithm reaches equilibrium in a reasonable time
+• fairness, optimality
+– often in conflict, e.g.
+• optimality – with respect to what ? What are we trying to optimise ?!
+• average Packet delay ? total Packet throughput ?
+• but these goals are also in conflict: operating any network near capacity
+implies long queueing delays in node buffers
+• compromise – minimise number of relays (or hops) a Packet needs
+link capacities
+fully utilised by
+A-A’, B-B’, C-C’
+traffic respectively
+45
+Network Layer: Routing Algorithms (cont.)
+• least-cost routing:
+• a value is assigned to each link in the network: this is the cost of using this link
+• the cost of a route is the combination of the values of its links
+• the best route is the one with the lowest cost  know how to relay incoming Packets
+• cost assigned to a link could be:
+• 1 for each link – finds route with the fewest hops
+• (financial) cost of using the link – finds cheapest route
+• packet delay on the link – finds minimum-delay route
+• packet transmission time on the link – finds maximum-bandwidth route
+• …or some combination of these, or other factors !
+• routing algorithms can be divided into 2 classes:
+• nonadaptive, or static – routing decisions are pre-determined and not based on
+measurements (or estimates) of the current network topology and traffic load
+• adaptive – routing decisions may be changed when network topology and/or
+traffic load changes
+• extreme case: select a new route for each Packet
+• may get information just from neighbouring routers, or from all routers
+• may re-determine routes periodically, or when topology changes, or when
+traffic load changes more than a threshold percentage, or…
+46
+Network Layer: Routing Algorithms (cont.)
+• once the “cost” of each link is known, the routers can run a routing algorithm to
+determine the best routes for each possible sender-receiver transmission
+• in practice: routing algorithm should be adaptive and de-centralised
+• the 2 most common routing algorithms are distance-vector and link-state
+• distance-vector: each router exchanges information about the entire network
+with neighbouring routers at regular intervals
+• neighbouring routers = connected by a direct link (e.g. a LAN)
+• regular intervals: e.g. every 30 seconds
+• link-state: each router exchanges information about its neighbourhood with
+all routers in the network when there is a change
+• neighbourhood of a router = set of neighbour routers for this router
+• each router’s neighbourhood information is flooded through the network
+• change: e.g. if a neighbouring router does not reply to a status message
+• link-state converges faster in practice, so more widely used
+• converges = determines optimal routes, given a particular network topology
+47
+Network Layer: Distance-Vector routing
+• cost = 1 for every link  finds minimum-hop routes
+• “clouds” represent LANs; number in cloud represents network ID
+• A, B, C, D, E, F are routers (or gateways)
+48
+Network Layer: Distance-Vector routing (cont.)
+• each router sends its information about the entire network only to its neighbours:
+• how do non-neighbouring routers learn about each other and share information ?
+• a router sends its information to its neighbours; each neighbour router adds
+this information to its own, and sends the updated information to its
+neighbours; so first router learns about its neighbours’ neighbours, ...
+49
+Network Layer: Distance-Vector routing (cont.)
+• each router stores information about the network in its routing table
+• initially, all a router
+knows is the network
+IDs of the networks
+to which it is directly
+connected
+initial routing
+table exchanges
+(no multi-hop
+routes yet)
+Network ID = final destination of Packet
+Cost = number of hops from this router to
+final destination
+Next Hop = neighbouring router to which
+Packet should be sent
+50
+Network Layer: Distance-Vector routing (cont.)
+• how is a router’s routing table updated when new information is received ?
+• routing table update algorithm (distributed Bellman-Ford algorithm):
+• add 1 to cost of each incoming route (since each neighbour is 1 hop away)
+• if a new destination learned, add its information to the routing table
+• if new information received on an existing destination:
+• if Next Hop field is the same, replace existing entry with the new
+information even if the cost is greater (“new information invalidates old”)
+• if Next Hop field is not the same, only replace existing entry with the
+new information if the cost is lower
+because B is
+1 hop from A
+keep the entry
+with lowest cost
+51
+Network Layer: Distance-Vector routing (cont.)
+• example of routing table update algorithm (unrelated to earlier Example network):
+Note: no new information about Net1 received,
+so its entry in the routing table is not updated
+52
+Network Layer: Distance-Vector routing (cont.)
+• final (converged) routing tables for earlier Example network:
+Note: choice between
+equal-cost routes
+depends on exact
+sequence of updates
+53
+Network Layer: Distance-Vector routing in practice
+• original ARPANET (forerunner of the Internet) used distance-vector routing
+• subsequently used in the Internet as RIP (Routing Information Protocol)
+• a variation of distance-vector routing is used in BGP (Border Gateway
+Protocol), which finds routes from one autonomous system (AS) to another AS
+• AS = a part of the Internet (e.g. a network) managed by one entity
+• link cost can be something other than 1 for each link…
+• e.g. packet delay, number of packets queued, …
+• problem with distance-vector routing: count-to-infinity problem
+• this refers to the slow convergence of distance-vector routing algorithms
+under some conditions
+• basic flaw – slow reaction to link/router failure because information only
+comes from neighbouring routers and it may be out-of-date (e.g. it may not
+properly reflect the impact of the failure on route costs)
+• many ad-hoc solutions have been tried (e.g. “split horizon”), but either they
+also fail to solve the count-to-infinity problem, or they are hard to implement
+• this slow convergence was one of the main reasons why other types of
+routing algorithm were explored, leading to link-state routing
+54
+Network Layer: Link-State routing
+• each router sends information about its neighbourhood to every other router:
+55
+Network Layer: Link-State routing (cont.)
+• link cost is usually a weighted sum of various factors
+• e.g. traffic level, security level, packet delay, …
+• link cost is from a router to the network connecting it to another router
+• when a packet is in a LAN (which is typically a broadcast network), every
+node – including the router – can receive it  no cost assigned when going
+from a network to a router
+Note: costs shown
+are examples only
+56
+Network Layer: Link-State routing (cont.)
+• routers share information by advertising, which means sending link-state packets:
+• a router gets its information about its neighbourhood by sending short ECHO
+packets to its neighbours and monitoring the responses:
+Advertiser: ID of sending router
+Network: ID of destination network
+Cost: link cost to neighbour
+Neighbour: ID of neighbour router
+the Figure shows
+how router A’s
+link-state packet
+is flooded to all
+other routers
+57
+Network Layer: Link-State routing (cont.)
+• every router builds a link-state packet and floods it through the network, so when
+all such packets have been received at a router, it can build its link-state database:
+Assuming that every router
+receives the same set of
+link-state packets (as if the
+routers were synchronised),
+every router builds the same
+link-state database.
+Using this database, each
+router can then calculate
+its routing table.
+58
+Network Layer: Link-State routing (cont.)
+• to calculate its routing table, a router uses Dijkstra’s Shortest-Path algorithm
+• first, identify all link costs in the network: either from the link-state database,
+or using the fact that the cost of any link from a network to a router is 0
+59
+Network Layer: Link-State routing – Dijkstra’s algorithm
+• this algorithm builds a shortest-path spanning tree for the router: such a tree has a
+route to all possible destinations, and no loops
+• the router running the algorithm is the root of its shortest-path spanning tree
+• even if all routers’ link-state databases are identical, the trees determined by
+the routers are different (since the root of each tree is different)
+• a node is either a network or a router; nodes are connected by arcs
+• the algorithm keeps track of 2 sets of nodes and arcs – Temporary and Permanent
+• initially, the Temporary set contains all neighbour nodes of the router itself,
+and the arcs connecting them to the router; only the router is initially Permanent
+• when all nodes and arcs are in the Permanent set, the algorithm has terminated
+identify the Temporary node whose arc has the lowest cumulative cost from the root:
+this node and arc are moved into the Permanent set;
+any nodes which are connected to the new Permanent node and are not already in the
+Temporary set, along with the connecting arcs, are made Temporary. Also, if any node
+already in the Temporary set has a lower cumulative cost from the root by using a route
+passing through the new Permanent node, then this new route replaces the existing one;
+repeat until all nodes and arcs are Permanent.
+60
+Network Layer: Link-State routing – Dijkstra’s algorithm (cont.)
+• as an Example, let’s follow the steps of the algorithm run by router A
+1. 2.
+3.
+Note: arcs are
+marked with their
+cumulative cost
+from the root (not
+individual costs)
+61
+Network Layer: Link-State routing – Dijkstra’s algorithm (cont.)
+4.
+5.
+Note: equal cumulative costs 
+choose one arbitrarily in step 6
+Note: arcs are
+marked with their
+cumulative cost
+from the root (not
+individual costs)
+62
+Network Layer: Link-State routing – Dijkstra’s algorithm (cont.)
+6.
+7.
+Note: arcs are
+marked with their
+cumulative cost
+from the root (not
+individual costs)
+63
+Network Layer: Link-State routing – Dijkstra’s algorithm (cont.)
+8.
+9.
+Note: arcs are
+marked with their
+cumulative cost
+from the root (not
+individual costs)
+64
+Network Layer: Link-State routing – Dijkstra’s algorithm (cont.)
+10.
+11.
+Note: arcs are
+marked with their
+cumulative cost
+from the root (not
+individual costs)
+if the new arc to network 66 from
+router D had a lower cumulative cost
+than the one from router C, then
+the new link would replace the old one
+65
+Network Layer: Link-State routing – Dijkstra’s algorithm (cont.)
+12.
+13.
+Note: arcs are
+marked with their
+cumulative cost
+from the root (not
+individual costs)
+all nodes and arcs are
+Permanent  STOP:
+this router’s shortest-path
+spanning tree has been found
+66
+Network Layer: Link-State routing – routing table
+• once a router has found its shortest-path spanning tree, it can build its routing table
+• to complete the Example, here is router A’s link-state routing table:
+• in large networks, the memory required to store the link-state database and the
+computation time to calculate the link-state routing table can be significant
+• in practice, since the link-state packet receptions are not synchronised, routers may
+be using different link-state databases to build their routing tables: how inaccurate
+the results are depends on how different the routers’ “views” of the network are
+Note: each router’s routing table
+will (in general) be different
+Networks 14, 23, and 78 don’t have
+a “Next router” entry because they
+are directly connected to this router
+67
+Network Layer: Link-State routing in practice
+• link-state routing algorithms have several desirable properties, e.g. rapid convergence; small
+amount of traffic generated; rapid response to topology changes
+• examples from the Internet are the Open Shortest Path First (OSPF) and Intermediate
+System to Intermediate System (IS-IS) routing protocols
+• link costs can be configured in OSPF. Possible link costs include:
+➢ 1 for each link
+➢ reliability: assigned by administrator, indicates how often the link fails
+➢ packet delay
+➢ link bandwidth
+➢ financial cost of the link
+• OSPF requires a lot of memory: each router holds its routing table & link-state database
+• Dijkstra’s algorithm computations are processor-intensive
+➢ legacy routers may be unable to relay packets when these calculations are taking
+place – which could be every time a link-state packet is received
+• OSPF can consume a lot of bandwidth if the network topology changes often
+• link-state packets sent to all routers using reliable flooding
+➢ need sequence number and time-to-live (TTL) field in each packet…
+
+Problem Set 2
+-----------------------------------------------------------
+                       Solutions
+                       ---------
+1. A network on the Internet has a subnet mask of 255.255.240.0.
+ What is the maximum number of hosts it can handle?
+
+Solution: the given subnet mask's encoded IP address is
+
+             11111111111111111111000000000000
+
+ 12 bits are available for the hostid ==> 2^12 possible
+ hostids. However all-0's and all-1's are reserved, so
+ the maximum number of hosts on this subnet is 2^12 - 2
+ = 4094 hosts.
+
+
+2. (a) Suppose a host with IP address 128.96.34.15 has a
+       subnet mask of 255.255.255.128. What is the subnet
+       number of the subnet this host is attached to?
+
+Solution: the encoded IP addresses are
+
+             10000000011000000010001000001111
+             11111111111111111111111110000000
+         AND --------------------------------
+             10000000011000000010001000000000
+
+ which (converting back into dotted-decimal notation) is
+ a subnet number of 128.96.34.0.
+
+   (b) The host in part (a) wants to send an IP datagram
+       to a host with IP address 128.96.34.139. Is the
+       destination on the same subnet as the sender or not?
+
+Solution: the bitwise AND of the destination address and
+ the host's subnet mask yields
+
+             10000000011000000010001010001011
+             11111111111111111111111110000000
+         AND --------------------------------
+             10000000011000000010001010000000
+
+ which in dotted-decimal form is 128.96.34.128. This does
+ not match the sending host's subnet number, so the
+ destination is not on its subnet and the datagram must
+ be sent to a router.
+
+
+3. (a) Suppose a host with IP address 107.73.14.24 has a
+       subnet mask of 255.255.192.0. What is the subnet
+       number of the subnet this host is attached to?
+
+107.73.0.0
+
+   (b) The host in part (a) wants to send an IP datagram
+       to a host with IP address 107.73.54.254. Is the
+       destination on the same subnet as the sender or not?
+
+Yes. Range of this subnet is 107.73.0.1 to 107.73.63.254
+
+4. Consider this IP address 51.82.101.217 with this mask 255.255.255.192
+
+- What class of network is this
+
+Class A (51)
+
+- What is the network ID
+
+51.0.0.0
+
+- How many usable hosts in each of the subnets
+
+Mask is 26 bits and so 6 bits left for host, 2^6 - 2 = 62
+
+- How many subnets are there
+
+Class A takes first 8 bits, next 18 bits are subnets, 2^18 = 262,144
+
+- What is the broadcast address of this subnet
+
+51.82.101.255
+
+5. Which of the following are valid IPv4 host addresses
+
+- 137.68.14.6
+
+Yes, class B, valid Network ID 137.68.0.0 and valid Host ID 14.6
+
+- 137.268.14.0
+
+No, class B, non-valid Network ID 137.268.0.0 and valid Host ID 14.6
+
+- 137.71.0.0
+
+No, class B, valid Network ID 137.71.0.0 but non-valid Host ID 0.0
+
+6. For the IP addresses in Q5 if we use a mask of 255.255.255.192
+which (if any) of the addresses will no longer be valid.
+
+Only one valid was 137.68.14.6 and still valid
+If 137.268.14.0 was 137.168.14.0 then would have been valid, but not now
+
+Problem Set TCP 
+-----------------------------------------------------------
+                       Solutions
+                       ---------
+1. Why does UDP exist? Would it not have been enough to just
+ let user processes send raw IP packets in order to communicate?
+
+Solution: UDP exists to extend IP's host-to-host delivery service 
+ into a process-to-process communication service
+
+ No you can not let them send raw IP. IP datagrams use IP 
+ addresses (identifying host machines), so without any additional 
+ addressing information the destination network layer process
+ responsible for delivering data to application layer
+ processes would not know what to do with an arriving IP
+ datagram. Process-to-process communications are based on
+ the concept of ports. A port is a conduit into a computer
+ through which data flows. We can have multiple processes
+ on a single computer, each with their own port number. A
+ process is uniquely addressed by a <port, IP address>
+ pair. Common applications are available at well-known (and
+ reserved) ports on each host; user applications must choose
+ from the set of non-reserved ports (generally, above 1023).
+
+ A UDP segment contains a destination port number that
+ identifies which application process is supposed to receive
+ the data. In this way UDP converts IP's machine-to-machine
+ delivery service into a process-to-process communication
+ service.
+
+
+2. A process on host 1 has been assigned port p, and a process
+ on host 2 has been assigned port q. Is it possible for there
+ to be 2 or more TCP connections between these 2 ports at the
+ same time?
+
+Solution: No. A TCP connection is uniquely identified by the
+ socket identifiers at each end {sock_id_1, sock_id_2}, where
+
+        sock_id_1 = IP_address_1, p
+        sock_id_2 = IP_address_2, q
+
+ Therefore, while multiple TCP connections may simultaneously
+ exist at sock_id_1 (or sock_id_2), there can only be one TCP
+ connection between sock_id_1 and sock_id_2 at any given time.
+
+
+3. Datagram fragmentation and reassembly are handled by IP and
+ are invisible to TCP. Does this mean that TCP does not have to
+ worry about data arriving in the wrong order?
+
+Solution: No. Although each IP datagram arrives intact, the
+ datagrams themselves may be out-of-order, requiring TCP to
+ reassemble the transmitted message.
+
+
+4. (a)  Consider the effect of using slow-start on a line with
+        10 millisec round trip time and no congestion. The
+        receiver's window is 24 kB and the Maximum Segment Size
+        is 2 kB. How long does it take before the first full
+        window can be sent?
+
+Solution: the first transmission is 2 kB, the second is
+ 4 kB, the third is 8 kB, the fourth is 16 kB, and the
+ fifth is 24 kB (which is the receiver's advertized window).
+ Therefore it takes 4 transmissions, or 40 millisec, before
+ the first full window is sent.
+
+    (b) Suppose that the TCP congestion window is 18 kB and
+        then a timeout occurs. If the Maximum Segment Size is
+        1 kB, how big will the congestion window be after 4
+        successful transmission bursts?
+
+Solution: the first transmission after a timeout is 1 MSS,
+ or 1 kB in this case. Assuming no further problems, the
+ second transmission will be 2 kB, the third will be 4 kB,
+ and the fourth will be 8 kB. However remember that the
+ Threshold parameter will have been set to half of the
+ previous congestion window, or 9 kB in this case. So after
+ the 4th successful transmission, the congestion window is
+ only allowed to increase from 8 to 9 kB.
+
+
+5. A TCP machine is sending full windows of 65,535 bytes over
+ a 1 Gbps channel that has a 10 millisec one-way delay. What
+ is the maximum achievable throughput? What is the line efficiency?
+
+Solution: one window's worth of data can be sent every 20
+ millisec. The achievable throughput is therefore
+
+ (65,535)/(20x10^-3) = 3.28x10^6 bytes/second
+
+                     = 26.21x10^6 bits/second, or 26.21 Mbps
+
+ Since the line rate is 10^9 bits/second, the efficiency is
+
+ (26.21x10^6)/(10^9) = 0.02621, or approximately 2.6%.
+
+ Note : this shows that on high-speed links, the current TCP
+ window management scheme performs poorly. One option is to
+ scale the window size to allow more data to be transmitted
+ in one RTT
+
+6. Consider a TCP connection with a Maximum Segement Size (MSS) of
+ 	2 kB and a Threshold of 60 kB. How big will the congestion window be 
+ 	after the 7th transmission
+
+  	What if there was a timeout on the 8th transmission, what would
+ 	the congestion window be in kB after the 13th transmission.
+
+Solution:
+Start - 2 kB
+1st Transmission is 2 kB, Congestion Window is 4 kB
+2nd Transmission is 4 kB, Congestion Window is 8 kB
+3rd Transmission is 8 kB, Congestion Window is 16 kB
+4th Transmission is 16 kB, Congestion Window is 32 kB
+5th Transmission is 32 kB, Congestion Window is 60 kB
+6th Transmission is 60 kB, Congestion Window is 62 kB
+7th Transmission is 62 kB, Congestion Window is 64 kB - first answer is 64
+8th Transmission is 64 kB, - timeout - reset Threshold to 32 kB
+9th Transmission - 2 kB
+10th Transmission - 4 kB
+11th Transmission - 8 kB
+12th Transmission - 16 kB
+13th Transmission - 32 kB - Congestion Window is 34 kB - second answer is 34
+
+Problem Set Packet Switching
+-----------------------------------------------------------
+
+Q1. Consider the IP address 92.92.182.187. When using the mask of 
+ 255.192.0.0 what is the broadcast address of this subnet.
+
+Solution:  192 is 11000000 and 92 is 01011100 
+so broadcast is 01111111 or 127, 92.127.255.255
+
+
+Q2. Consider a route in a store and forward network going through 7 
+ intermediate nodes The packets contain 745 Bytes and are transmitted 
+ at a rate of 24 Mbps. Assume propagation delays over the links are 
+ negligible. How long does it take for the packet to get to the 
+ receiver in micro seconds (round the answer). 
+
+Solution: Transmission time is  745 x 8 / 24 micro seconds per node 248.3
+Has to traverse 7 nodes so 8 times this: 1986.6 so rounded to 1987
+
+Q3. When is packet switching usually preferred to circuit
+ switching ? (Note: more than one answer may be correct)
+   (a) always;
+   (b) when network delays have to be small;
+   (c) when the input traffic is bursty;
+   (d) when the transmission rate is high.
+
+Solution: (b), (c)
+
+Q4. Datagram packet switching is often preferred to virtual
+ circuit packet switching for the transmission of a short
+ message (one that can be split up into a small number of
+ packets). State one condition under which virtual circuit
+ packet switching could be preferred even for short messages.
+
+Solution: if the virtual circuit setup time was low or zero;
+ or if the additional datagram header (see Problem 14) was
+ large enough that it outweighed the effect of virtual
+ circuit setup time. Also, if in-order delivery was required,
+ and the datagrams were likely to get out of order, a virtual
+ circuit would be preferable (though this is an unlikely
+ requirement for short messages).
+
+Q5. If 2 virtual circuits pass through a network node N, and
+ packets are travelling on both virtual circuits at the same
+ time so that node N sees an interleaved stream of packets,
+ how does node N know which packets belong to the first
+ virtual circuit and which packets belong to the second ?
+
+Solution: each packet carries with it the virtual circuit
+ identifier for its virtual circuit; these identifiers are
+ chosen to be different for different virtual circuits. So
+ by examining a packet's virtual circuit identifier field,
+ node N can determine which virtual circuit the packet is
+ travelling on.
+
+Q6. Compare the delay in sending a message of length x bits
+ over a k-hop path in a circuit-switched network and in a
+ (lightly-loaded) datagram packet-switched network. The
+ circuit setup time is s seconds, the propagation delay
+ is d seconds per hop, the packet size is p bits, and the
+ data rate at each node is b bits per second. Under what
+ conditions on s, k, b, and p does the packet-switched
+ network have a lower delay ?
+
+ Assume that x is a multiple of p (in other words, the
+ total number of bits to be transmitted is a multiple of
+ the packet length). The x bits to be transmitted in the
+ packet-switched network include the packet headers (in
+ other words, the header bits are already accounted for
+ in x). Finally, assume the packet-switched network is
+ lightly loaded (in other words, the queueing delays in
+ each intermediate node can be taken to be zero).
+
+Solution: in circuit switching, the bits are pipelined
+ through the network; whereas in packet switching, it's
+ packets that are pipelined through the network, but a
+ packet can't be forwarded from an intermediate node
+ until it's fully received at the node (hence the
+ "store-and-forward" delay). Also, we assume here that
+ packets can be transmitted back-to-back at the nodes,
+ and that no processing time is needed at intermediate
+ nodes once the packet has been fully received.
+
+ Circuit switching : delay = (setup time) + (time to
+  transmit x bits at the sender) + (propagation delay
+  of last bit along the path) = s + (x/b) + kd
+
+ Packet switching : delay  = (time to transmit x bits
+  at the sender) + (propagation delays of last bit of
+  last packet along the path) + (packet retransmission
+  delays at the intermediate nodes)
+
+ and since we assumed that the number of bits x is a
+  multiple of the packet length p, this delay is
+
+                    delay  = (x/b) + kd + (k-1)(p/b)
+
+ By comparing the two delay expressions, we see that the
+  packet switched option is faster if s > (k-1)(p/b).
+
+Q7. Datagram subnets route each packet as a separate unit, 
+ independent of all others. Virtual circuit subnets do not 
+ have to do this, since each data packet follows a predetermined
+ route. Does this mean that virtual circuit subnets do not need
+ the capability to route isolated packets from an arbitrary
+ source to an arbitrary destination?
+
+Solution: No. A virtual circuit subnet still needs to be
+ able to route isolated packets from an arbitrary source
+ to an arbitrary destination to set up the connection.
+
+
+Problem Set Internetworking
+-----------------------------------------------------------
+                       Solutions
+                       ---------
+Reminders: There are no marks associated with these problems,
+ and you do not hand in your answers. Solutions will be
+ distributed shortly. 
+
+
+1. Three (3) packet-switching networks each contain n nodes.
+ The first network has a star topology with a central switch;
+ the second is a (bidirectional) ring; and the third is fully
+ interconnected, with a wire from every node to every
+ other node. What are the best, average, and worst case
+ transmission path lengths in hops?
+
+Solution:           best          average         worst
+ ---------------------------------------------------------
+ star                2               2              2
+
+ bi-dir. ring*       1             ~n/4           ~n/2
+
+ full mesh           1               1              1
+
+* there is a slight difference depending on whether n is
+   even or odd
+
+
+2. Suppose you want to add two new computers to an existing
+ network with five computers. If the network has a fully
+ connected mesh topology, how many new links are needed ?
+ If the network instead had a ring topology, how many new
+ links would be needed ?
+
+Solution: 5 computers want to add 2 new ones. In a mesh first 
+ new computer needs 5 links to add to all 5 machines, and the 
+ next one needs 6 links, so total of 11 new links. In a ring, 
+ add one new link per computers, so only 2 new links needed.
+ (assuming one existing link can be  re-directed to one of 
+ the new nodes). You can see how to get these solutions by 
+ drawing the network topologies and simply counting the 
+ number of new links needed...
+
+
+3. According to the OSI Model, which layers are implemented
+ in the nodes within a subnet ?
+
+Solution: within a subnet only the physical, datalink and
+ network layers are implemented (the bottom 3 layers of the
+ OSI model).
+
+4. Why is the transmission of information between two peer
+ processes in the OSI Model called virtual transmission?
+
+Solution: transmission of information between two peer
+ processes is referred to as virtual transmission because
+ the processes are concerned only with the information
+ content being exchanged, and not the way in which this
+ information is actually transmitted. The actual
+ transmission of information is down the protocol stack
+ at the sender, across the physical medium, and up the
+ protocol stack at the receiver, but to the peer processes
+ it appears that they are directly exchanging information.
+
+5. Which layer of the OSI Model handles each of the
+ following functions ?
+
+   (a) Find a path from source to destination;
+   (b) Encrypt the data for security purposes;
+   (c) Retransmit in reply to an error reported by a
+        neighbouring node;
+   (d) Break the transmitted bit stream into frames.
+
+Solution: (a) network; (b) presentation; (c) datalink;
+ (d) datalink.
+
+6. Which of the following correctly explains the term
+ "encapsulation" as used in layered network architectures:
+
+  (a) each layer may add control information as data is
+       passed down the protocol stack at a sending host,
+       without processing the data itself;
+  (b) each layer is programmed as if it were directly
+       connected to its peer process in another host,
+       although the actual direction of transmission in
+       a protocol stack is vertical;
+  (c) each layer only has interfaces with the layers
+       directly above and below it.
+
+Solution: (a) is correct.
+
+7. List two ways in which the OSI Reference Model and the 
+ TCP/IP Reference Model are the same, and two ways in which 
+ they differ.
+
+Solution: similarities -- both the OSI and TCP/IP
+ reference models are layered models; both have network,
+ transport, and application layers; in both models the
+ transport layer can provide reliable end-to-end transfer
+ of bytes; in both models the end-users don't have to be
+ concerned about the physical communication network.
+
+ differences -- OSI model has 7 layers, TCP/IP model has
+ 4 layers; TCP/IP model does not have session and
+ presentation layers; OSI model can provide connectionless
+ or connection-oriented service in the network layer,
+ whereas TCP/IP model only provides a connectionless
+ network layer service.
+
+8. Draw a diagram to show at which layers of the OSI model
+ the following internetworking devices operate: repeater;
+ bridge; router; gateway.
+
+Solution: see lecture notes on "Internetworking and Routing"
+and slide 9 there.
+
+
+9. Assuming that all routers and hosts are working properly
+ and that all software in both is free of all errors, is there
+ any chance (however small) that a packet will be delivered to
+ the wrong destination?
+
+Solution: Yes. Even if all routers and hosts are working
+ correctly and all software in them is error-free, a large
+ enough noise burst could be undetected by the error
+ protection mechanisms. Since all practical error
+ protection mechanisms have undetectable errors, this means
+ we can't rule out a valid packet for destination A being
+ corrupted to a valid packet for destination B, which will
+ result in mis-routing.
+
+10. Briefly describe the principle of least-cost routing 
+ in packet-switching networks, mentioning some possible 
+ link costs.
+
+Solution: least cost routing: a value is assigned to each 
+ link in the network: this is the cost of using this link the 
+ cost of a route is the combination of the values of its links 
+ the best route is the one with the lowest cost  know how to 
+ relay incoming Packets
+
+Some possible costs are
+ 1 for each link finds route with the fewest hops
+ (financial) cost of using the link finds cheapest route
+ packet delay on the link finds minimum delay route
+ packet transmission time on the link finds maximum bandwidth route
+
+11. The two most common routing algorithms in practice 
+ are distance-vector and link-state. Briefly describe 
+ their operation, mentioning the information exchanged 
+ between routers in each algorithm.
+
+Solution: distance vector: each router exchanges information 
+ about the entire networkwith neighbouring routers at regular 
+ intervals
+ 
+ link state: each router exchanges information about its 
+ neighbourhood with all routers in the network when there 
+ is a change
+
+ See lecture notes on "Internetworking and Routing" slide 46 
+ and onwards.
+
+12. A routing algorithm provides the logic used by a router 
+ in a packet-switched network to decide, for each incoming 
+ packet, which output link the packet should be transmitted 
+ on. Briefly describe the desirable properties of a routing 
+ algorithm.
+
+Solution: 
+ correctness , simplicity , efficiency obviously
+ robustness since usually the entire network can’t be 
+ “re booted”
+ stability routing algorithm reaches equilibrium in a reasonable 
+ time 
+ fairness , optimality
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
